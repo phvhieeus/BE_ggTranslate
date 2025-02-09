@@ -29,16 +29,6 @@ public class User {
 
     private String address;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", phone=" + phone +
-                ", age=" + age +
-                ", address='" + address + '\'' +
-                '}';
-    }
+    @Column(columnDefinition = "MEDIUMTEXT")
+    private String refreshToken;
 }
