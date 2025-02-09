@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
 
 @Entity
 @Table(name = "users")
@@ -14,7 +13,7 @@ import java.time.Instant;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     private String name;
 
     @NotBlank(message = "Email cannot be blank")
@@ -24,16 +23,11 @@ public class User {
     private String password;
 
     @NotBlank(message = "Phone cannot be blank")
-    private double phone;
+    private String phone;
 
     private int age;
 
     private String address;
-
-    private Instant createdAt;
-    private Instant updatedAt;
-    private String createdBy;
-    private String updatedBy;
 
     @Override
     public String toString() {
@@ -45,10 +39,6 @@ public class User {
                 ", phone=" + phone +
                 ", age=" + age +
                 ", address='" + address + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", createdBy='" + createdBy + '\'' +
-                ", updatedBy='" + updatedBy + '\'' +
                 '}';
     }
 }

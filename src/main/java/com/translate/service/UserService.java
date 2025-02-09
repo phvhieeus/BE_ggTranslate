@@ -1,6 +1,9 @@
 package com.translate.service;
 
 import com.translate.domain.User;
+import com.translate.domain.response.user.ResCreateUserDTO;
+import com.translate.domain.response.user.ResUpdateUserDTO;
+import com.translate.domain.response.user.ResUserDTO;
 import com.translate.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +21,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(long id) {
+    public void deleteUser(int id) {
         userRepository.deleteById(id);
     }
 
@@ -26,7 +29,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserById(long id) {
+    public User getUserById(int id) {
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()) {
             return user.get();
@@ -38,10 +41,54 @@ public class UserService {
         User currentUser = getUserById(user.getId());
         if(currentUser != null) {
             currentUser.setName(user.getName());
-            currentUser.setEmail(user.getEmail());
-            currentUser.setPassword(user.getPassword());
+            currentUser.setPhone(user.getPhone());
+            currentUser.setAge(user.getAge());
+            currentUser.setAddress(user.getAddress());
             currentUser = userRepository.save(currentUser);
         }
         return currentUser;
+    }
+
+    public boolean isEmailExist(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public ResCreateUserDTO convertToResCreateUserDTO(User user){
+        ResCreateUserDTO res = new ResCreateUserDTO();
+
+        res.setId(user.getId());
+        res.setName(user.getName());
+        res.setEmail(user.getEmail());
+        res.setPhone(user.getPhone());
+        res.setAge(user.getAge());
+        res.setAddress(user.getAddress());
+
+        return res;
+    }
+
+    public ResUserDTO convertToResUserDTO(User user) {
+        ResUserDTO res = new ResUserDTO();
+
+        res.setId(user.getId());
+        res.setName(user.getName());
+        res.setEmail(user.getEmail());
+        res.setPhone(user.getPhone());
+        res.setAge(user.getAge());
+        res.setAddress(user.getAddress());
+
+        return res;
+    }
+
+    public ResUpdateUserDTO convertToResUpdateUserDTO(User user){
+        ResUpdateUserDTO res = new ResUpdateUserDTO();
+
+        res.setId(user.getId());
+        res.setName(user.getName());
+        res.setEmail(user.getEmail());
+        res.setPhone(user.getPhone());
+        res.setAge(user.getAge());
+        res.setAddress(user.getAddress());
+
+        return res;
     }
 }
