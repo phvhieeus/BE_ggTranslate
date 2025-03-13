@@ -41,6 +41,7 @@ public class SecurityConfiguration {
                                            CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
         String[] whiteList = {
                 "/",
+                "/users",
                 "/auth/login", "/auth/refresh", "/auth/register",
         };
 
@@ -50,7 +51,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(
                         authz -> authz
                                 .requestMatchers(whiteList).permitAll()
-
+                                .requestMatchers(HttpMethod.POST, "/users").permitAll()  // Cho phép POST tạo user không cần xác thực
                                 .anyRequest().authenticated())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())
                         .authenticationEntryPoint(customAuthenticationEntryPoint)
